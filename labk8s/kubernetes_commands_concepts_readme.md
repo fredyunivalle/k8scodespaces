@@ -190,6 +190,12 @@ spec:
 kubectl apply -f svc.yaml
 kubectl get svc
 kubectl describe svc hello-svc
+
+# Port-forward the Service to access it locally
+kubectl port-forward svc/hello-svc 8080:80
+
+# With namespace
+kubectl -n demo port-forward svc/hello-svc 8080:80
 ```
 
 ---
