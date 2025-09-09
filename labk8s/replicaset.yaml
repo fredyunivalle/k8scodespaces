@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: saludoprofefredy
+  template:
+    metadata:
+      labels:
+        app: saludoprofefredy
+    spec:
+      containers:
+      - name: saludo-profe
+        image: fredyball/saludoapp:0.0.1
+        ports:
+        - containerPort: 80
