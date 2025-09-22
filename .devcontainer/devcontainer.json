@@ -10,5 +10,5 @@
     }
   },
   "postCreateCommand": "curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash",
-  "postStartCommand": "k3d cluster create dev --agents 1 --wait || true"
+  "postStartCommand": "k3d cluster create dev --agents 3 --wait || true"
 }
