@@ -1,0 +1,18 @@
+# file: 05-throwaway-toleration-grace.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: throwaway-grace
+spec:
+  nodeSelector:
+    zone: sab
+  tolerations:
+  - key: "quarantine"
+    operator: "Equal"
+    value: "true"
+    effect: "NoExecute"
+    tolerationSeconds: 60   # se queda hasta 60s y luego se expulsa
+  containers:
+  - name: busy
+    image: busybox
+    command: ["sh","-c","sleep 3600"]
