@@ -1,0 +1,29 @@
+# file: 02-db-with-toleration-and-affinity.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-with-toleration
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: db }
+  template:
+    metadata:
+      labels: { app: db }
+    spec:
+      tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "db"
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: performance
+                operator: In
+                values: ["high"]   # agent-0 y agent-1 son 'high'
+      containers:
+      - name: redis
+        image: redis

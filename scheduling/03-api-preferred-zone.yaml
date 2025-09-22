@@ -1,0 +1,26 @@
+# file: 03-api-preferred-zone.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-preferred-bcn
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: api }
+  template:
+    metadata:
+      labels: { app: api }
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 90
+            preference:
+              matchExpressions:
+              - key: zone
+                operator: In
+                values: ["bcn"]   # agent-1
+      containers:
+      - name: http-echo
+        image: hashicorp/http-echo
+        args: ["-text=hello"]

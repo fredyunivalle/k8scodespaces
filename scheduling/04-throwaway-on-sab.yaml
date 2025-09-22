@@ -1,0 +1,13 @@
+# file: 04-throwaway-on-sab.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: throwaway
+  labels: { app: throw }
+spec:
+  nodeSelector:
+    zone: sab    # fuerza caer en agent-2
+  containers:
+  - name: busy
+    image: busybox
+    command: ["sh","-c","sleep 3600"]
